@@ -10,6 +10,7 @@ const { chains, provider, webSocketProvider } = configureChains(
   [
     chain.mainnet,
     chain.polygon,
+    chain.goerli
   ],
   [
     alchemyProvider({
