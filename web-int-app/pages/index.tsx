@@ -2,15 +2,23 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import {useAccount, usePrepareContractWrite } from 'wagmi';
+import {useAccount, usePrepareContractWrite, useContractWrite, useWaitForTransaction} from 'wagmi';
+import {calculate_score} from '../assets/javascript/algo'
+import contractInterface from '../assets/abi/abi.json'
 
 const Home: NextPage = () => {
   const { address, isConnected } = useAccount();
-  // const {config} = usePrepareContractWrite({
-  //   addressOrName: '',
-  //   contractInterface: abi.json file,
-  //   functionName: 'mint'
-  // })
+  const {config} = usePrepareContractWrite({
+    address: '0x8d94B2d1319252b8bf928F1739ada00fE3CaBB79',
+    abi:contractInterface,
+    functionName: 'mint'
+  })
+  const {data:mintData, write:mint, isLoading: isMintLoading, isSuccess: isMintStarted} = useContractWrite(config);
+
+  const {isSuccess:txSuccess } = useWaitForTransaction({
+    hash: mintData?.hash
+  })
+  const isMinted = txSuccess;
   return (
     <div className={styles.container}>
       <Head>
@@ -24,15 +32,24 @@ const Home: NextPage = () => {
         <ConnectButton showBalance={false} chainStatus='icon'/>
         {isConnected &&
           <div>
-            Your credit score: 1000
+            Your credit score: {calculate_score(address)}
           </div>
         }
-
-        {isConnected &&
-          <button style = {{ marginTop:10}} className="button">
-            Mint
+        {isConnected &&(
+            <button 
+            style = {{ marginTop:10}} 
+            className="button" 
+            onClick = {()=> mint?.()} 
+            disabled={isMintLoading || isMintStarted || isMinted}
+            data-ming-loading ={isMintLoading}
+            data-mint-started ={isMintStarted}
+          >
+            {isMintLoading && 'waiting for approval'}
+            {isMintStarted && !isMinted && 'Minting...'}
+            {isMinted && 'Minted'}
+            {!isMintLoading && !isMintStarted && !isMinted && 'Mint'}
           </button>
-        }
+        )}
       </main>
     </div>
   );

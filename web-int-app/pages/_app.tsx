@@ -10,7 +10,6 @@ import { useInitialChainId } from '@rainbow-me/rainbowkit/dist/components/Rainbo
 const { chains, provider, webSocketProvider } = configureChains(
   [
     chain.mainnet,
-    chain.polygon,
     chain.goerli
   ],
   [
