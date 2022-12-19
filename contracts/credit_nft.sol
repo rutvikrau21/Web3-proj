@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-import "./ERC721.sol";
+import "./libraries/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract credit_nft is ERC721 {
