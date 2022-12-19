@@ -7,13 +7,6 @@ import MintBlock from './mintBlock'
 const Hero = () => {
     const [score, setScore] = useState(null);
     const { address, isConnected } = useAccount();
-    useEffect(async () => {
-        var score = "Connect wallet for score";
-        console.log("connected?", isConnected);
-        score = await getScore(address);
-        setScore(score);
-     }, []);
-     console.log("score2: ", score)
 
   return (
     <div>
