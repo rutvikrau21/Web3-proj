@@ -12,9 +12,7 @@ const updateScore = () => {
     args: [address]
   });
   const [count, setCount] = useState(score_now);
-  if(score_error){
-    return ;
-  }else{
+  
     return (
       <div>
         <button
@@ -26,6 +24,6 @@ const updateScore = () => {
       )
   }
 
-}
+
 
 export default updateScore;

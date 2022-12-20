@@ -4,7 +4,7 @@ import {useAccount, usePrepareContractWrite, useContractWrite, useWaitForTransac
     usePrepareContractRead, useContractRead} from 'wagmi';
 import contractInterface from '../assets/abi/abi.json'
 
-const mintBlock =()=> {
+const mintBlock =({userScore})=> {
   const { address, isConnected } = useAccount();
   const {isError: score_error} = useContractRead({
     address: '0x9647a7A834fdbe2a4e6B639eF3be2Ec0abc5D0E1',
@@ -16,7 +16,7 @@ const mintBlock =()=> {
     address: '0x9647a7A834fdbe2a4e6B639eF3be2Ec0abc5D0E1',
     abi:contractInterface,
     functionName: 'mint',
-    args:[465],
+    args:[userScore],
     overrides:{
       value:ethers.utils.parseEther('0.01'),
     }

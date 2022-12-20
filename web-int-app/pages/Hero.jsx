@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import {useAccount} from 'wagmi';
-import MyArcProgress from './../assets/MyArcProgress';
+import MyArcProgress from '../assets/arc';
 import { calculate_score } from './../assets/javascript/algo';
-import MintBlock from './mintBlock'
+import mintBlock from './mintBlock'
 import US from './updateScore'
 
 const Hero = () => {
     const [score, setScore] = useState(0);
     const { address, isConnected } = useAccount();
-
+    const progress = 0;
     useEffect(() => {
         // Define an async function inside the useEffect hook
         async function fetchData() {
@@ -19,9 +19,8 @@ const Hero = () => {
         }
         // Call the async function
         fetchData();
-      }, [isConnected]);
-    
-     console.log("score2: ", score)
+        progress = (score - 300)/550;
+        }, [isConnected]);
 
   return (
     <div>
@@ -32,9 +31,8 @@ const Hero = () => {
           </h1>
           <div className="rounded-xl border-2 border-cred-light-blue-opacity-0.2 m-4  ">
             <div className="p-6 h-[calc(100%-8px-24px-24px)]">
-                <div> Your score is {score} </div>
             {isConnected && <div> 
-            <MyArcProgress progress={0.3} customText = 
+            <MyArcProgress progress={progress} customText = 
             {[{ text:score, size: "45px", color: "gray", x: 150, y: 141 },
             { text: "300", size: "20px", color: "gray", x: 52.5, y: 255 },
             { text: "850", size: "20px", color: "gray", x: 250, y: 255 }]} />
@@ -50,7 +48,7 @@ const Hero = () => {
         </div>
         </div>
         <div>
-        {isConnected && <MintBlock/>}
+        {isConnected && <mintBlock userScore = {score} />}
         </div>
         <div>
         {isConnected && <US/>}
