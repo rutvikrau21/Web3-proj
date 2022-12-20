@@ -6,7 +6,7 @@ import MintBlock from './mintBlock'
 import US from './updateScore'
 
 const Hero = () => {
-    const [score, setScore] = useState("Reconnect Wallet");
+    const [score, setScore] = useState(0);
     const { address, isConnected } = useAccount();
 
     useEffect(() => {
