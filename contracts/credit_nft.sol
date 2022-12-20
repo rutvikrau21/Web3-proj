@@ -114,6 +114,7 @@ contract credit_nft is ERC721 {
     }
 
     function withdraw() public payable onlyOwner {
+        require(ETH_balance > 0, "no balance");
         payable(owner()).transfer(ETH_balance);
     }
 }
