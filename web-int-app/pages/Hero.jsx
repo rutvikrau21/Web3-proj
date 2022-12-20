@@ -6,17 +6,20 @@ import MintBlock from './mintBlock'
 import US from './updateScore'
 
 const Hero = () => {
-    const [score, setScore] = useState(0);
+    const [score, setScore] = useState("Reconnect Wallet");
     const { address, isConnected } = useAccount();
 
-    if (isConnected) {
-        useEffect(async () => {
+    useEffect(() => {
+        // Define an async function inside the useEffect hook
+        async function fetchData() {
             score = await calculate_score(address);
             score = Math.round(score);
             score = score.toString()
             setScore(score);
-         });
-    }
+        }
+        // Call the async function
+        fetchData();
+      }, [isConnected]);
     
      console.log("score2: ", score)
 
@@ -32,7 +35,7 @@ const Hero = () => {
                 <div> Your score is {score} </div>
             {isConnected && <div> 
             <MyArcProgress progress={0.3} customText = 
-            {[{ text: 465, size: "45px", color: "gray", x: 150, y: 141 },
+            {[{ text:score, size: "45px", color: "gray", x: 150, y: 141 },
             { text: "300", size: "20px", color: "gray", x: 52.5, y: 255 },
             { text: "850", size: "20px", color: "gray", x: 250, y: 255 }]} />
             </div>
@@ -58,5 +61,6 @@ const Hero = () => {
     </ div>
   );
 }
+
 
 export default Hero
