@@ -9,21 +9,26 @@ contract credit_nft is ERC721 {
     Counters.Counter private _tokenIds;
     mapping(uint256 => uint256) private _score;
     mapping(address => uint256) private _update_limit;
+    mapping(address => uint256) private _validated;
     uint256 ETH_balance;
 
     constructor() ERC721("Credicle", "Credit") {}
 
-    function setCreditScore(address addr, uint256 user_score) public onlyOwner{
-        require(_update_limit[addr] < 10, "reached maximum free update chance, please recharge");
-        _update_limit[addr] += 1;
-        _setCreditScore(get_own_ID(addr), user_score);
-        emit Setted(addr, user_score);
+    function validate_score(address addr) public onlyOwner{
+        require(_validated[addr] != 1, "this account has already been validated");
+        _validated[addr] = 1;
+    }
+
+    function setCreditScore(uint256 user_score) public{
+        require(_update_limit[msg.sender] < 10, "reached maximum free update chance, please recharge");
+        _update_limit[msg.sender] += 1;
+        _setCreditScore(get_own_ID(msg.sender), user_score);
+        emit Setted(msg.sender, user_score);
     }
 
     function _setCreditScore(uint256 tokenId, uint256 user_score)
         internal
         virtual 
-        onlyOwner
     {
         require(
             _exists(tokenId),
@@ -37,7 +42,7 @@ contract credit_nft is ERC721 {
         _score[tokenId] = user_score;
     }
 
-    function updateCreditscore(address addr, uint256 user_score) public onlyOwner{
+    function updateCreditscore(address addr, uint256 user_score) public{
         require(_update_limit[addr] < 10, "reached maximum free update chance, please recharge");
         _update_limit[addr] += 1;
         _updateCreditscore(get_own_ID(addr), user_score);
@@ -46,8 +51,7 @@ contract credit_nft is ERC721 {
 
     function _updateCreditscore(uint256 tokenId, uint256 user_score)
         internal
-        virtual 
-        onlyOwner
+        virtual
     {
         require(
             _exists(tokenId),
@@ -90,7 +94,7 @@ contract credit_nft is ERC721 {
         return _update_limit[addr];
     }
 
-    function mint()
+    function mint(uint256 score)
         public
         payable
         returns (uint256)
@@ -105,6 +109,7 @@ contract credit_nft is ERC721 {
         uint256 newItemId = _tokenIds.current();
         _mint(msg.sender, newItemId);
         _update_limit[msg.sender] = 0;
+        setCreditScore(score);
         return newItemId;
     }
 
