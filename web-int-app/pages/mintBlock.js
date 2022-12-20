@@ -1,3 +1,4 @@
+import { ethers } from 'ethers';
 import React, { Component } from 'react'
 import {useAccount, usePrepareContractWrite, useContractWrite, useWaitForTransaction, 
     usePrepareContractRead, useContractRead} from 'wagmi';
@@ -8,7 +9,10 @@ const mintBlock =()=> {
         address: '0x9647a7A834fdbe2a4e6B639eF3be2Ec0abc5D0E1',
         abi:contractInterface,
         functionName: 'mint',
-        args:[465]
+        args:[465],
+        overrides:{
+          value:ethers.utils.parseEther('0.01'),
+        }
       });
       const {data:mintData, write:mint, isLoading: isMintLoading, isSuccess: isMintStarted} = useContractWrite(config);
     
