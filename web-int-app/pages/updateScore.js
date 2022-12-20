@@ -3,9 +3,9 @@ import {useAccount, usePrepareContractWrite, useContractWrite, useWaitForTransac
     usePrepareContractRead, useContractRead} from 'wagmi';
 import contractInterface from '../assets/abi/abi.json'
 
-const mintBlock =()=> {
+const updateScore = () => {
       const {config} = usePrepareContractWrite({
-        address: '0x8d94B2d1319252b8bf928F1739ada00fE3CaBB79',
+        address: '0xE20090a866A699B80C6774690762907863CC7f2c',
         abi:contractInterface,
         functionName: 'mint'
       });
@@ -32,10 +32,10 @@ const mintBlock =()=> {
                 {isMintLoading && 'waiting for approval'}
                 {isMintStarted && !isMinted && 'Minting...'}
                 {isMinted && 'Minted'}
-                {!isMintLoading && !isMintStarted && !isMinted && 'Mint'}
+                {!isMintLoading && !isMintStarted && !isMinted && 'Update'}
         </button>
         </>
       )
 }
 
-export default mintBlock;
+export default updateScore;

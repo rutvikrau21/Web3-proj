@@ -17,6 +17,7 @@ const Home: NextPage = () => {
     </ div>
     <div className="bg-white">
     <Hero />
+    
   </div>
   </>
   );

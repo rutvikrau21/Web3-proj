@@ -3,6 +3,7 @@ import {useAccount} from 'wagmi';
 import MyArcProgress from './../assets/MyArcProgress';
 import { calculate_score } from './../assets/javascript/algo';
 import MintBlock from './mintBlock'
+import US from './updateScore'
 
 const Hero = () => {
     const [score, setScore] = useState(null);
@@ -33,8 +34,12 @@ const Hero = () => {
                 }
         </div>
         </div>
+        <div>
         {isConnected && <MintBlock/>}
-    
+        </div>
+        <div>
+        {isConnected && <US/>}
+        </div>
           </ div>
           </ div>
 
