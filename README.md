@@ -21,7 +21,7 @@ Web3 Class Project for Leo, Aaron and Rutvik
 ```
 cd web-int-app
 npm install
-npm run
+npm run dev
 ```
 
 # How to use
@@ -30,7 +30,7 @@ Connect your wallet first
 Then you will see your credit score on the screen
 This is calculated dynamically by the algorithm
 Click mint to mint an NFT with the credit score you got
-After mint, you will see an update button, this is to update the credit score you have on chain (Metadata of your NFT)
+After mint, you will see an update button, this is to check the credit score you have on chain (Metadata of your NFT). You might notice a difference between what the wheel shows and what the update shows, that's because the wheel will show the current while update will show the number on your NFT.
 ```
 
 
