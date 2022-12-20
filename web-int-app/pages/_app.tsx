@@ -9,14 +9,12 @@ import { useInitialChainId } from '@rainbow-me/rainbowkit/dist/components/Rainbo
 
 const { chains, provider, webSocketProvider } = configureChains(
   [
-    chain.mainnet,
     chain.goerli
   ],
   [
     alchemyProvider({
       apiKey: 'UM1dp9s3VDCEMKIDBf6O-GvfKCE_CI3R',
     }),
-    publicProvider(),
   ]
 );
 
