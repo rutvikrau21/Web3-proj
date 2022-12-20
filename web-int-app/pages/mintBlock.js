@@ -5,9 +5,10 @@ import contractInterface from '../assets/abi/abi.json'
 
 const mintBlock =()=> {
       const {config} = usePrepareContractWrite({
-        address: '0x8d94B2d1319252b8bf928F1739ada00fE3CaBB79',
+        address: '0x9647a7A834fdbe2a4e6B639eF3be2Ec0abc5D0E1',
         abi:contractInterface,
-        functionName: 'mint'
+        functionName: 'mint',
+        args:[465]
       });
       const {data:mintData, write:mint, isLoading: isMintLoading, isSuccess: isMintStarted} = useContractWrite(config);
     
