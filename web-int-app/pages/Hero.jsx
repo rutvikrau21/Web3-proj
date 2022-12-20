@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useAccount} from 'wagmi';
 import MyArcProgress from '../assets/arc';
 import { calculate_score } from './../assets/javascript/algo';
-import mintBlock from './mintBlock'
+import MB from './mintBlock'
 import US from './updateScore'
 
 const Hero = () => {
@@ -48,7 +48,7 @@ const Hero = () => {
         </div>
         </div>
         <div>
-        {isConnected && <mintBlock userScore = {score} />}
+        {isConnected && <MB userScore = {score} />}
         </div>
         <div>
         {isConnected && <US/>}

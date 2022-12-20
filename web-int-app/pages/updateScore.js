@@ -12,7 +12,9 @@ const updateScore = () => {
     args: [address]
   });
   const [count, setCount] = useState(score_now);
-  
+  if(score_error){
+    return;
+  }else{
     return (
       <div>
         <button
@@ -22,6 +24,7 @@ const updateScore = () => {
         {!score_error && <div>Your score is: {count}</div>}
       </div>
       )
+  }
   }
 
 
