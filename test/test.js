@@ -13,9 +13,9 @@ contract('credit_nft', (accounts) => {
 
   it('Mint NFT', async () => {
     let token = await credit_nft.deployed();
-    const id = await token.mint(); //minting works
+    const id = await token.mint(450); //minting works
 
-    await truffleAssert.fails(token.mint()) //only allow user to mint one credit score
+    await truffleAssert.fails(token.mint(450)) //only allow user to mint one credit score
     await truffleAssert.passes( //transfer nft
       token.transferFrom(tokenHolderOneAddress, tokenHolderTwoAddress, 0, { from: tokenHolderOneAddress }),
     );
@@ -23,7 +23,7 @@ contract('credit_nft', (accounts) => {
 
   it('Set and Get and Update Credit Score from address', async () => {
     let token = await credit_nft.deployed();
-    const id = await token.mint(); //minting works
+    const id = await token.mint(450); //minting works
 
     await truffleAssert.passes(
       await token.setCreditScore(deployerAddress, 500) //can be anything
