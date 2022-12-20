@@ -6,8 +6,19 @@ import MintBlock from './mintBlock'
 import US from './updateScore'
 
 const Hero = () => {
-    const [score, setScore] = useState(null);
+    const [score, setScore] = useState(0);
     const { address, isConnected } = useAccount();
+
+    if (isConnected) {
+        useEffect(async () => {
+            score = await calculate_score(address);
+            score = Math.round(score);
+            score = score.toString()
+            setScore(score);
+         });
+    }
+    
+     console.log("score2: ", score)
 
   return (
     <div>
@@ -18,6 +29,7 @@ const Hero = () => {
           </h1>
           <div className="rounded-xl border-2 border-cred-light-blue-opacity-0.2 m-4  ">
             <div className="p-6 h-[calc(100%-8px-24px-24px)]">
+                <div> Your score is {score} </div>
             {isConnected && <div> 
             <MyArcProgress progress={0.3} customText = 
             {[{ text: 465, size: "45px", color: "gray", x: 150, y: 141 },
@@ -45,12 +57,6 @@ const Hero = () => {
 
     </ div>
   );
-}
-
-async function getScore(address) {
-      var score = await calculate_score(address);
-      score = Math.round(score);
-      return score.toString();
 }
 
 export default Hero
