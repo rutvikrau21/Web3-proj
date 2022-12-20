@@ -8,7 +8,6 @@ import US from './updateScore'
 const Hero = () => {
     const [score, setScore] = useState(0);
     const { address, isConnected } = useAccount();
-    const progress = 0;
     useEffect(() => {
         // Define an async function inside the useEffect hook
         async function fetchData() {
@@ -19,7 +18,6 @@ const Hero = () => {
         }
         // Call the async function
         fetchData();
-        progress = (score - 300)/550;
         }, [isConnected]);
 
   return (
@@ -32,7 +30,7 @@ const Hero = () => {
           <div className="rounded-xl border-2 border-cred-light-blue-opacity-0.2 m-4  ">
             <div className="p-6 h-[calc(100%-8px-24px-24px)]">
             {isConnected && <div> 
-            <MyArcProgress progress={progress} customText = 
+            <MyArcProgress progress={(score - 300)/550} customText = 
             {[{ text:score, size: "45px", color: "gray", x: 150, y: 141 },
             { text: "300", size: "20px", color: "gray", x: 52.5, y: 255 },
             { text: "850", size: "20px", color: "gray", x: 250, y: 255 }]} />

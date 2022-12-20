@@ -6,7 +6,7 @@ import {useAccount, usePrepareContractWrite, useContractWrite, useWaitForTransac
 import {calculate_score} from '../assets/javascript/algo.js'
 import contractInterface from '../assets/abi/abi.json'
 import Header from './header';
-import Hero from './hero';
+import Hero from './Hero';
 
 const Home: NextPage = () => {
   
