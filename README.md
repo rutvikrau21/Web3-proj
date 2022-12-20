@@ -53,3 +53,11 @@ We used etherscan’s API to query blockchain data from a wallet address and sta
 
 This score allows a lender to know if the user they are interacting with has a good sense of the ecosystem and has been a consistent user in the space.
 ```
+
+# Testing
+
+In the ```/test/test.js``` folder, there is are unit tests for the ```credit_nft.sol``` smart contract. 
+
+To run, ensure you have truffle, ganache installed and have the contract deployed. Then, simply run ```truffle --migrate``` or ```truffle test```. 
+
+Make sure to modify the addresses to match your ganache/metamask addresses. 
