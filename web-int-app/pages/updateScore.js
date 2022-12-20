@@ -1,40 +1,25 @@
-import React, { Component } from 'react'
-import {useAccount, usePrepareContractWrite, useContractWrite, useWaitForTransaction, 
-    usePrepareContractRead, useContractRead} from 'wagmi';
+import React, { Component, useState } from 'react'
+import {useAccount, useWaitForTransaction, useContractRead} from 'wagmi';
 import contractInterface from '../assets/abi/abi.json'
 
 const updateScore = () => {
-      const {config} = usePrepareContractWrite({
-        address: '0xE20090a866A699B80C6774690762907863CC7f2c',
-        abi:contractInterface,
-        functionName: 'mint'
-      });
-      const {data:mintData, write:mint, isLoading: isMintLoading, isSuccess: isMintStarted} = useContractWrite(config);
-    
-      const {isSuccess:txSuccess } = useWaitForTransaction({
-        hash: mintData?.hash
-      })
-      const isMinted = txSuccess;
-
-
+  var score_now = "?";
+  const { address, isConnected } = useAccount();
+  const {data: score_data, isLoading: score_loading, isError: score_error, isSuccess: score_success} = useContractRead({
+    address: '0x9647a7A834fdbe2a4e6B639eF3be2Ec0abc5D0E1',
+    abi:contractInterface,
+    functionName: 'get_score_by_addr',
+    args: [address]
+  });
+  const [count, setCount] = useState(score_now);
     return (
-        <>
+      <div>
         <button
-        className="shadow-xl shadow-black text-white
-        bg-[#e32970] hover:bg-[#bd255f] p-2
-        rounded-full cursor-pointer my-4"
-                style = {{ marginTop:10}} 
-                onClick = {()=> mint?.()} 
-                disabled={isMintLoading || isMintStarted || isMinted}
-                data-ming-loading ={isMintLoading}
-                data-mint-started ={isMintStarted}
-        >
-                {isMintLoading && 'waiting for approval'}
-                {isMintStarted && !isMinted && 'Minting...'}
-                {isMinted && 'Minted'}
-                {!isMintLoading && !isMintStarted && !isMinted && 'Update'}
+          onClick = {()=> {setCount(score_data.toString())}}>
+          update
         </button>
-        </>
+        <div>Your score is: {count}</div>
+      </div>
       )
 }
 
